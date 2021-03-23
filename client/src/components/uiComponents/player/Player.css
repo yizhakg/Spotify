@@ -13,8 +13,6 @@
   margin: 0;
   outline: none;
 }
-
-
 .rswp__toggle svg path,
 ._DevicesRSWP.__1c3oep4 svg path,
 ._VolumeRSWP.__1gm0lve svg path {
@@ -24,4 +22,11 @@
 ._DevicesRSWP.__1c3oep4:hover  svg path,
 ._VolumeRSWP.__1gm0lve:hover  svg path  {
   fill: var(--green);
+}
+._SliderRSWP.__181lube span,._SliderRSWP.__181lube div{
+  cursor: pointer;
+}
+.PlayerRSWP p{
+  /* display: none; */
+ font-size: .7em;
 }

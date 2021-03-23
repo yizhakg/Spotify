@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 export default function useAuth(code) {
   const [accessToken, setAccessToken] = useState();
@@ -15,7 +15,7 @@ export default function useAuth(code) {
         setAccessToken(res.data.accessToken);
         setRefreshToken(res.data.refreshToken);
         setExpiresIn(res.data.expiresIn);
-        // window.history.pushState({}, null, "/");
+        window.history.pushState({}, null, "/");
       })
       .catch(() => {
         window.location = "/";

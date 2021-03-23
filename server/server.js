@@ -30,6 +30,10 @@ app.get("/lyrics", async (req, res) => {
    const index = track.indexOf("(");
    track = track.substring(0,index)
  }
+ if(track.indexOf("-")!=-1){
+   const index = track.indexOf("-");
+   track = track.substring(0,index)
+ }
    const lyrics = await lyricsFinder(artist,track );
   res.json({ lyrics });
 });

@@ -17,7 +17,7 @@ export default function Dashboard({ code }) {
   const [searchResults, setSearchResults] = useState([]);
   const [playingTrack, setPlayingTrack] = useState();
   const [lyrics, setLyrics] = useState("");
-
+  
   const chooseTrack = (track) => {
     setPlayingTrack(track)
     setSearch("")
@@ -70,8 +70,10 @@ export default function Dashboard({ code }) {
   return (
     <div className="dashboard">
       <div className="searchBox">
-        <input type="search" value={search} className="search" placeholder=" &#xF002; Search Song/Artists" onChange={(e) => setSearch(e.target.value)} />
+        <input id="search" type="search" value={search} className="search" placeholder=" Search Song/Artists" onChange={(e) => setSearch(e.target.value)} />
+        <label htmlFor="search"><i className="fas fa-search"></i></label>
       </div>
+
       <div className="results">
         {searchResults.map((track) => (
           <TrackResults track={track} chooseTrack={chooseTrack} key={track.uri} />

@@ -3,7 +3,9 @@ import "./Header.css"
 export default function Header() {
   return (
     <div className="header">
-     <img class="headerImg" src="./headerImg.png" alt=""/>
+     <img className="headerImg" src="./headerImg.png" alt="" onClick={()=>{
+         window.location = "/";
+     }}/>
     </div>
   )
 }
