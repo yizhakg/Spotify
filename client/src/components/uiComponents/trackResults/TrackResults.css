@@ -1,0 +1,17 @@
+.trackCard {
+  margin: 20px;
+  display: flex;
+  color:rgb(233, 233, 233);
+  cursor: pointer;
+}
+.trackCard >*{
+  margin: 0 20px;
+}
+.trackCard img {
+  height: 64px;
+  width: 64px;
+}
+.trackInfo {
+  display: flex;
+  flex-direction: column;
+}
