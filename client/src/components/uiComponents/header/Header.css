@@ -1,0 +1,16 @@
+.header{
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content:space-between;
+  align-items:center;
+  height:60px;
+  width: 100%;
+  /* background:var(--black) */
+  background:transparent;
+}
+.headerImg{
+  height:30px;
+  mix-blend-mode: screen;
+  margin:0 20px;
+}

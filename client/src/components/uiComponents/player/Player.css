@@ -1,0 +1,27 @@
+.player {
+  width: 90vw;
+  position: fixed;
+  left: 50%;
+  bottom: 10px;
+  display: flex;
+  justify-content: center;
+  transform: translateX(-50%);
+  /* background: rgba(134, 128, 128, 0.247); */
+  backdrop-filter: blur(15px);
+}
+.player * {
+  margin: 0;
+  outline: none;
+}
+
+
+.rswp__toggle svg path,
+._DevicesRSWP.__1c3oep4 svg path,
+._VolumeRSWP.__1gm0lve svg path {
+  transition: 0.3s;
+}
+.rswp__toggle:hover svg path,
+._DevicesRSWP.__1c3oep4:hover  svg path,
+._VolumeRSWP.__1gm0lve:hover  svg path  {
+  fill: var(--green);
+}

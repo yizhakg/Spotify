@@ -5,11 +5,11 @@ export default function TrackResults({track,chooseTrack}) {
     chooseTrack(track)
   }
   return (
-    <div className="trackCard" onclick={handlePlay}>
+    <div className="trackCard" onClick={handlePlay}>
       <img src={track.albumUrl} alt=""/>
       <div className="trackInfo">
-        <h3>{track.title}</h3>
-        <h5>{track.artist}</h5>
+        <h3 class="trackTitle">{track.title}</h3>
+        <h5 class="trackArtist">{track.artist}</h5>
       </div>
     </div>
   )

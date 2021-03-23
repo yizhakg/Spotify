@@ -1,48 +1,68 @@
 .dashboard {
   width: 100%;
-  height: 100%;
+  height: calc(100vh - 60px);
+  margin-top:auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   word-wrap: break-word;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.searchBox {
+  position: sticky;
+  top: 0;
+  width: 90vw;
 }
 .dashboard .search {
-  width: 98%;
+  width: 100%;
   font-family: Helvetica, sans-serif, "Font Awesome 5 Free";
   text-align: center;
-  font-size: 1em;
-  font-weight: 900;
-  border-radius: 20px;
+  font-size: .8em;
+  font-weight: 600;
+  letter-spacing: 1px;
+  border-radius: 100px;
   border: 2px solid var(--green);
   height: 40px;
-  margin: 10px auto;
   outline: none;
   padding: 0 20px;
   transition: 0.5s ease-in-out;
 }
-.dashboard .search:placeholder-shown{
-  background:var(--grey2);
+.dashboard .search:placeholder-shown {
+  background: var(--green3);
   border: 2px solid var(--grey);
 }
-.dashboard .search::placeholder{
+.dashboard .search::placeholder {
+  color: var(--white);
+  transition: 0.5s ease-in-out;
+}
+.dashboard .search:focus::placeholder {
   color: var(--grey);
 }
 .dashboard .search:focus {
   border: 2px solid var(--green2);
+  background: #fff;
 }
 
-.results{
+.results {
   width: 80%;
-  display:flex;
-  flex-direction:column;
+  display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
-  justify-content:flex-start;
-  align-items:flex-start;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
-
-
-.bottom{ 
-  position: fixed;
-  bottom:0;
+.lyrics {
+  text-align: center;
+  width: 100%;
+}
+.lyrics .lyricTitle {
+  word-wrap: break-word;
+  margin: 20px;
+  color: var(--green2);
+}
+.lyrics .lyricWords {
+  white-space: pre;
+  color: var(--white);
 }

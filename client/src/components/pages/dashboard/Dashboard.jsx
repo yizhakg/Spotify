@@ -3,6 +3,8 @@ import './Dashboard.css'
 import useAuth from '../../../services/useAuth'
 import SpotifyWebApi from "spotify-web-api-node"
 import TrackResults from "../../uiComponents/trackResults/TrackResults"
+import Player from "../../uiComponents/player/Player"
+import axios from 'axios'
 
 const spotifyApi = new SpotifyWebApi({
   clientId: "a730843ad65740449d795342bc50b8fb",
@@ -13,6 +15,27 @@ export default function Dashboard({ code }) {
   const accessToken = useAuth(code);
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [playingTrack, setPlayingTrack] = useState();
+  const [lyrics, setLyrics] = useState("");
+
+  const chooseTrack = (track) => {
+    setPlayingTrack(track)
+    setSearch("")
+    setLyrics("")
+  }
+
+  useEffect(() => {
+    if (!playingTrack) return;
+    console.log(playingTrack)
+    axios.get('http://localhost:4001/lyrics', {
+      params: {
+        track: playingTrack.title,
+        artist: playingTrack.artist
+      }
+    }).then((res) => {
+      setLyrics(res.data.lyrics)
+    })
+  }, [playingTrack])
 
   useEffect(() => {
     if (!accessToken) return;
@@ -46,15 +69,25 @@ export default function Dashboard({ code }) {
 
   return (
     <div className="dashboard">
-      <input type="search" name="" className="search" placeholder=" &#xF002; Search Song/Artists" onChange={(e) => setSearch(e.target.value)} />
+      <div className="searchBox">
+        <input type="search" value={search} className="search" placeholder=" &#xF002; Search Song/Artists" onChange={(e) => setSearch(e.target.value)} />
+      </div>
       <div className="results">
         {searchResults.map((track) => (
-          <TrackResults track={track} key={track.uri} />
+          <TrackResults track={track} chooseTrack={chooseTrack} key={track.uri} />
         ))}
+        {searchResults.length === 0 && (
+          <div className="lyrics">
+            {playingTrack && <div className="lyricTitle">
+              <h1>{playingTrack.title}</h1>
+              <h2>{playingTrack.artist}</h2>
+            </div>}
+            <div className="lyricWords">{lyrics}</div>
+          </div>
+        )}
       </div>
-      <div className="bottom">
-        bottom
-      </div>
+
+      <Player accessToken={accessToken} trackUri={playingTrack?.uri} />
     </div>
   )
 }

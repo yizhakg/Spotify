@@ -1,17 +1,32 @@
 .trackCard {
-  margin: 20px;
+  width: 100%;
+  padding:15px 5px;
   display: flex;
   color:rgb(233, 233, 233);
   cursor: pointer;
+  transition: .5s;
+}
+.trackCard:hover {
+ background: var(--green3);
 }
 .trackCard >*{
-  margin: 0 20px;
+  margin: 0 15px;
 }
 .trackCard img {
   height: 64px;
   width: 64px;
+  border-radius: 5px;
 }
 .trackInfo {
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
+  align-items:space-around;
+}
+.trackTitle{
+font-size: 1.2em;
+}
+.trackArtist{
+  color: var(--grey2);
+  font-size: .7em;
 }
