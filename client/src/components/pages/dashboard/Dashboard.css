@@ -72,7 +72,17 @@
   color: #000;
   transition: 0.3s ease-in-out;
 }
-/* ################################ */
+
+.lyrics-btn {
+  background: transparent;
+  font-size: .7em;
+  letter-spacing: 1px;
+  color: var(--white);
+  outline: none;
+  border: none;
+  cursor: pointer;
+
+}
 .results {
   width: 80%;
   display: flex;
@@ -85,6 +95,7 @@
   text-align: center;
   width: 100%;
   margin-bottom: 80px;
+  transition: .5s;
 }
 .lyrics .lyricTitle {
   word-wrap: break-word;

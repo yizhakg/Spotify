@@ -17,6 +17,8 @@ export default function Dashboard({ code }) {
   const [searchResults, setSearchResults] = useState([]);
   const [playingTrack, setPlayingTrack] = useState();
   const [lyrics, setLyrics] = useState("");
+  const [showLyrics, setShowLyrics] = useState(true);
+
   const chooseTrack = (track) => {
     setPlayingTrack(track)
     setSearch("")
@@ -78,13 +80,14 @@ export default function Dashboard({ code }) {
       <div className="searchBox">
         <input id="search" type="search" value={search} className="search" placeholder=" Search Song/Artists" onBlur={handleSearchBlur} onChange={(e) => setSearch(e.target.value)} />
         <label htmlFor="search"><i className="fas fa-search"></i></label>
+        {lyrics && <button className="lyrics-btn" onClick={() => setShowLyrics((isShow) => !isShow)}>Lyrics {showLyrics ? <i class="fas fa-times"></i> : <i class="fas fa-plus"></i>}</button>}
       </div>
 
       <div className="results">
         {searchResults.map((track) => (
           <TrackResults track={track} chooseTrack={chooseTrack} key={track.uri} />
         ))}
-        {searchResults.length === 0 && (
+        {searchResults.length === 0 && showLyrics && (
           <div className="lyrics">
             {playingTrack && <div className="lyricTitle">
               <h1>{playingTrack.title}</h1>
