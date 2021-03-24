@@ -8,8 +8,8 @@ export default function TrackResults({track,chooseTrack}) {
     <div className="trackCard" onClick={handlePlay}>
       <img src={track.albumUrl} alt=""/>
       <div className="trackInfo">
-        <h3 class="trackTitle">{track.title}</h3>
-        <h5 class="trackArtist">{track.artist}</h5>
+        <h3 className="trackTitle">{track.title}</h3>
+        <h5 className="trackArtist">{track.artist}</h5>
       </div>
     </div>
   )

@@ -9,10 +9,13 @@ export default function SpotifyRouter() {
   return (
     <React.Fragment>
       <Switch>
-        <Route exact path="/">
-          {code ? <Dashboard code={code} /> : <Login />}
+        <Route path="/dashboard">
+          <div>frffffffffffffffffffffffffffffffffffffffffffffffffffffee</div>
         </Route>
       </Switch>
+      <Route path="/">
+        {code ? <Dashboard code={code} /> : <Login />}
+      </Route>
     </React.Fragment>
   )
 }

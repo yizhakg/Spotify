@@ -17,13 +17,19 @@ export default function Dashboard({ code }) {
   const [searchResults, setSearchResults] = useState([]);
   const [playingTrack, setPlayingTrack] = useState();
   const [lyrics, setLyrics] = useState("");
-  
   const chooseTrack = (track) => {
     setPlayingTrack(track)
     setSearch("")
     setLyrics("")
   }
-
+  console.log(playingTrack)
+  const handleSearchBlur = (e) => {
+    console.log(e.target.value);
+    setTimeout(() => {
+      setSearch("");
+      setSearchResults([]);
+    }, 500);
+  }
   useEffect(() => {
     if (!playingTrack) return;
     console.log(playingTrack)
@@ -70,7 +76,7 @@ export default function Dashboard({ code }) {
   return (
     <div className="dashboard">
       <div className="searchBox">
-        <input id="search" type="search" value={search} className="search" placeholder=" Search Song/Artists" onChange={(e) => setSearch(e.target.value)} />
+        <input id="search" type="search" value={search} className="search" placeholder=" Search Song/Artists" onBlur={handleSearchBlur} onChange={(e) => setSearch(e.target.value)} />
         <label htmlFor="search"><i className="fas fa-search"></i></label>
       </div>
 

@@ -1,13 +1,14 @@
 .header{
   position: fixed;
   top: 0;
+  left: 0;
   display: flex;
   justify-content:space-between;
   align-items:center;
   height:60px;
-  width: 100%;
-  /* background:var(--black) */
+  width: fit-content;
   background:transparent;
+  z-index: 100;
 }
 .headerImg{
   height:30px;

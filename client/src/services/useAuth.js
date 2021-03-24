@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 export default function useAuth(code) {
   const [accessToken, setAccessToken] = useState();
   const [refreshToken, setRefreshToken] = useState();
   const [expiresIn, setExpiresIn] = useState();
-
+  const history = useHistory();
   //create access token
   useEffect(() => {
     axios
@@ -15,7 +16,8 @@ export default function useAuth(code) {
         setAccessToken(res.data.accessToken);
         setRefreshToken(res.data.refreshToken);
         setExpiresIn(res.data.expiresIn);
-        window.history.pushState({}, null, "/");
+        // window.history.pushState({}, null, "/dashboard");
+        history.push("/dashboard");
       })
       .catch(() => {
         window.location = "/";
@@ -38,7 +40,7 @@ export default function useAuth(code) {
           window.location = "/";
         });
     }, (expiresIn - 60) * 1000);
-    return ()=>clearInterval(interval)
+    return () => clearInterval(interval);
   }, [refreshToken, expiresIn]);
 
   return accessToken;
