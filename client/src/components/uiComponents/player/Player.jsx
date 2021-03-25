@@ -3,6 +3,8 @@ import "./Player.css"
 import SpotifyPlayer from 'react-spotify-web-playback';
 
 export default function Player({ accessToken, playingTrack }) {
+  const [play, setPlay] = useState(false)
+  const [currentTrack, setCurrentTrack] = useState(null)
   let trackUri;
   if (playingTrack) {
     if (Array.isArray(playingTrack)) {
@@ -11,10 +13,6 @@ export default function Player({ accessToken, playingTrack }) {
       trackUri = [playingTrack.uri];
     }
   }
-
-  console.log(trackUri)
-
-  const [play, setPlay] = useState(false)
   const playerStyle = {
     activeColor: '#1db954',
     bgColor: 'transparent',
@@ -26,9 +24,19 @@ export default function Player({ accessToken, playingTrack }) {
     trackNameColor: '#fff',
 
   }
+  const handlePlayer = (state) => {
+    console.log(state)
+    if (!state.isPlaying) setPlay(false)
+    if(!state.isPlaying) return
+    if (currentTrack) currentTrack.classList.remove("active")
+    document.getElementById(state.track.id).classList.add("active")
+    setCurrentTrack(document.getElementById(state.track.id))
+    console.log(currentTrack)
+  }
+
   useEffect(() => {
     setPlay(true)
-  }, [trackUri])
+  }, [trackUri, currentTrack])
 
   if (!accessToken) return null
   return (
@@ -37,9 +45,7 @@ export default function Player({ accessToken, playingTrack }) {
         token={accessToken}
         showSaveIcon={true}
         play={play}
-        callback={state => {
-          if (!state.isPlaying) setPlay(false)
-        }}
+        callback={handlePlayer}
         uris={trackUri}
         styles={playerStyle}
       />

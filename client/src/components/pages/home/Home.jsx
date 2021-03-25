@@ -10,8 +10,6 @@ const spotifyApi = new SpotifyWebApi({
 export default function Home({ accessToken, setPlayingTrack, setSearchResults }) {
   const [playlists, setPlaylists] = useState([])
 
-  console.log(playlists)
-
   useEffect(() => {
     if (!accessToken) return;
     spotifyApi.setAccessToken(accessToken);
@@ -64,7 +62,8 @@ export default function Home({ accessToken, setPlayingTrack, setSearchResults })
           artist: track.artists.map(artist => artist.name).join(', '),
           title: track.name,
           uri: track.uri,
-          albumUrl: smallestAlbumImage.url
+          albumUrl: smallestAlbumImage.url,
+          id: track.id
         }
       })
       setSearchResults(playlistSongs);

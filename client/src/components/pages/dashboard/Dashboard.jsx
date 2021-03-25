@@ -15,7 +15,7 @@ export default function Dashboard({ code, setToken, playingTrack, setPlayingTrac
   const accessToken = useAuth(code);
   const [search, setSearch] = useState("");
   const [lyrics, setLyrics] = useState("");
-  const [showLyrics, setShowLyrics] = useState(true);
+  const [showLyrics, setShowLyrics] = useState(false);
 
   const chooseTrack = (track) => {
     setPlayingTrack(track)
@@ -37,8 +37,6 @@ export default function Dashboard({ code, setToken, playingTrack, setPlayingTrac
       }
     }).then((res) => {
       setLyrics(res.data.lyrics)
-      // console.log(res.data.lyrics)
-      setShowLyrics(true)
     })
   }, [playingTrack])
 
@@ -56,6 +54,7 @@ export default function Dashboard({ code, setToken, playingTrack, setPlayingTrac
     spotifyApi.searchTracks(search).then(res => {
       if (cancel) return;
       setSearchResults(res.body.tracks.items.map(track => {
+        console.log(track)
         const smallestAlbumImage = track.album.images.reduce((smallest, image) => {
           if (image.height < smallest.height) return image;
           return smallest
@@ -64,7 +63,8 @@ export default function Dashboard({ code, setToken, playingTrack, setPlayingTrac
           artist: track.artists.map(artist => artist.name).join(', '),
           title: track.name,
           uri: track.uri,
-          albumUrl: smallestAlbumImage.url
+          albumUrl: smallestAlbumImage.url,
+          id:track.id
         }
       }))
     })
@@ -88,17 +88,17 @@ export default function Dashboard({ code, setToken, playingTrack, setPlayingTrac
             <TrackResults track={track} chooseTrack={chooseTrack} key={track.uri} />
           ))}
         </div>
-        <Player accessToken={accessToken} playingTrack={playingTrack} />
       </div>
       {showLyrics && (
         <div className="lyrics">
           {playingTrack && <div className="lyricTitle">
             <h1>{playingTrack.title || playingTrack[0].title}</h1>
-            <h2>{playingTrack.artist ||playingTrack[0].artist }</h2>
+            <h2>{playingTrack.artist || playingTrack[0].artist}</h2>
           </div>}
           {lyrics && <div className="lyricWords">{lyrics}</div>}
         </div>
       )}
+      <Player accessToken={accessToken} playingTrack={playingTrack} />
     </React.Fragment>
   )
 }
