@@ -3,6 +3,7 @@ import "./Player.css"
 import SpotifyPlayer from 'react-spotify-web-playback';
 
 export default function Player({ accessToken, trackUri }) {
+  console.log(trackUri)
 
   const [play, setPlay] = useState(false)
   const playerStyle = {
