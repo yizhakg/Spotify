@@ -1,17 +1,33 @@
-.slide-wrapper{
+.slide-wrapper {
   position: relative;
-  height:170px;
-  width:100vw;
+  height: 170px;
+  width: 100vw;
   overflow: hidden;
 }
-.slide{
-  position:absolute;
-  top:0;
-  left:0;
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100vw;
-  display:flex;
+  display: flex;
   overflow-x: auto;
-  cursor: pointer;
+  overflow-y: hidden;
 }
-.slide img{
+.home .playlistImg {
+  height: 150px;
+  width: 150px;
+  margin: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.home .playlistImg:hover {
+  position: relative;
+  transform: scale(1.1);
+}
+
+.slide img {
+  pointer-events: none;
+  height: 150px;
+  width: 150px;
+  object-fit: cover;
 }

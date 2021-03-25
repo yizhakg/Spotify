@@ -10,29 +10,41 @@ const spotifyApi = new SpotifyWebApi({
 
 export default function Home({ accessToken }) {
   const [playlists, setPlaylists] = useState([])
-
   console.log(playlists)
-
   useEffect(() => {
     if (!accessToken) return;
     spotifyApi.setAccessToken(accessToken);
     spotifyApi.searchPlaylists("XO").then(res => {
       setPlaylists(res.body.playlists.items.map(playlist => {
+        // console.log(playlist)
         const biggestPlaylistImage = playlist.images.reduce((biggest, image) => {
           if (image.height > biggest.height) return image;
           return biggest
         }, playlist.images[0])
         return {
-          playlistImage: biggestPlaylistImage.url
+          playlistId: playlist.id,
+          playlistName: playlist.name,
+          playlistUri: playlist.uri,
+          playlistImage: biggestPlaylistImage.url,
+          playlistUrl: playlist.href,
         }
       }))
     })
   }, [accessToken])
 
+  useEffect(() => {
+    if (!playlists || playlists.length==0) return;
+    console.log(playlists[0].playlistId)
+    spotifyApi.getPlaylistTracks(playlists[0].playlistId).then(res => {
+      console.log(res.body.items)
+    }).catch(err => console.log(err))
+  }, [playlists])
 
   return (
     <div className="home">
+      <div className="favorite">
         <SlideFlex item={playlists} />
+      </div>
     </div>
   )
 }

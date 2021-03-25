@@ -2,12 +2,8 @@ import React, { useEffect } from 'react'
 import "./SlideFlex.css"
 
 export default function SlideFlex({ item }) {
-
-  const Slides = item.map((playlist, i) => {
-    return < img key={`img${i}`} className="playlistImg" src={playlist.playlistImage} alt="" />
-  })
   const handleClick = (e) => {
-    const ele = e.target;
+    const ele = document.getElementById("slide")
     const pos = {
       // The current scroll 
       left: ele.scrollLeft,
@@ -27,8 +23,20 @@ export default function SlideFlex({ item }) {
     ele.onmousemove = mouseMoveHandler
   }
   const handleUp = (e) => {
-    e.target.onmousemove = null
+    document.getElementById("slide").onmousemove = null
   }
+
+  const Slides = item.map((playlist, i) => {
+    return <div key={`div${i}`} className="playlistImg" >
+      < img src={playlist.playlistImage} alt="" />
+    </div>
+  })
+  // const Slides = item.map((playlist, i) => {
+  //   const style = {
+  //     backgroundImage:`url(${playlist.playlistImage})`
+  //   }
+  //   return <div key={`img${i}`} className="playlistImg" style={style} alt="" onMouseDown={handleClick} onMouseUp={handleUp}></div>
+  // })
 
 
   return (

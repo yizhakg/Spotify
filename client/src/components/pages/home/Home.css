@@ -1,7 +1,6 @@
 .home {
   height: calc(100vh - 140px);
   margin-top: auto;
-  overflow: hidden;
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -10,9 +9,6 @@
   margin-bottom: 80px;
   position: relative;
 }
-.home .playlistImg {
-  height: 150px;
-  width: 150px;
-  object-fit: cover;
-  margin: 10px;
+.favorite{
+  width:100%;
 }
