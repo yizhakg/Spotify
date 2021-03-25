@@ -14,6 +14,7 @@
   overflow-y: hidden;
 }
 .home .playlistImg {
+  position: relative;
   height: 150px;
   width: 150px;
   margin: 10px;
@@ -21,13 +22,16 @@
   transition: 0.3s;
 }
 .home .playlistImg:hover {
-  position: relative;
   transform: scale(1.1);
 }
-
 .slide img {
   pointer-events: none;
   height: 150px;
   width: 150px;
   object-fit: cover;
+}
+.home .playlistImg button{
+  position: absolute;
+  bottom:0;
+  right:0;
 }

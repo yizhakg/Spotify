@@ -11,11 +11,9 @@ const spotifyApi = new SpotifyWebApi({
 
 })
 
-export default function Dashboard({ code, setToken }) {
+export default function Dashboard({ code, setToken, playingTrack, setPlayingTrack, searchResults, setSearchResults }) {
   const accessToken = useAuth(code);
   const [search, setSearch] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-  const [playingTrack, setPlayingTrack] = useState();
   const [lyrics, setLyrics] = useState("");
   const [showLyrics, setShowLyrics] = useState(true);
 
@@ -25,7 +23,6 @@ export default function Dashboard({ code, setToken }) {
     setLyrics("")
   }
   const handleSearchBlur = (e) => {
-    console.log(e.target.value);
     setTimeout(() => {
       setSearch("");
       setSearchResults([]);
@@ -35,11 +32,12 @@ export default function Dashboard({ code, setToken }) {
     if (!playingTrack) return;
     axios.get('http://localhost:4001/lyrics', {
       params: {
-        track: playingTrack.title,
-        artist: playingTrack.artist
+        track: playingTrack.title || playingTrack[0].title,
+        artist: playingTrack.artist || playingTrack[0].artist
       }
     }).then((res) => {
       setLyrics(res.data.lyrics)
+      // console.log(res.data.lyrics)
       setShowLyrics(true)
     })
   }, [playingTrack])
@@ -73,32 +71,34 @@ export default function Dashboard({ code, setToken }) {
 
     return () => cancel = true;
 
-  }, [search, accessToken])
-
+  }, [search, accessToken, setSearchResults])
+  useEffect(() => {
+  }, [lyrics])
   return (
-    <div className="dashboard">
-      <div className="searchBox">
-        <input id="search" type="search" value={search} className="search" placeholder=" Search Song/Artists" onBlur={handleSearchBlur} onChange={(e) => setSearch(e.target.value)} />
-        <label htmlFor="search"><i className="fas fa-search"></i></label>
-        {lyrics && <button className="lyrics-btn" onClick={() => setShowLyrics((isShow) => !isShow)}>Lyrics {showLyrics ? <i class="fas fa-times"></i> : <i class="fas fa-plus"></i>}</button>}
-      </div>
+    <React.Fragment>
+      <div className="dashboard">
+        <div className="searchBox">
+          <input id="search" type="search" value={search} className="search" placeholder=" Search Song/Artists" onBlur={handleSearchBlur} onChange={(e) => setSearch(e.target.value)} />
+          <label htmlFor="search"><i className="fas fa-search"></i></label>
+          {lyrics && <button className="lyrics-btn" onClick={() => setShowLyrics((isShow) => !isShow)}>Lyrics {showLyrics ? <i className="fas fa-times"></i> : <i className="fas fa-plus"></i>}</button>}
+        </div>
 
-      <div className="results">
-        {searchResults.map((track) => (
-          <TrackResults track={track} chooseTrack={chooseTrack} key={track.uri} />
-        ))}
-        {searchResults.length === 0 && showLyrics && (
-          <div className="lyrics">
-            {playingTrack && <div className="lyricTitle">
-              <h1>{playingTrack.title}</h1>
-              <h2>{playingTrack.artist}</h2>
-            </div>}
-            {lyrics && <div className="lyricWords">{lyrics}</div>}
-          </div>
-        )}
+        <div className="results">
+          {searchResults.map((track) => (
+            <TrackResults track={track} chooseTrack={chooseTrack} key={track.uri} />
+          ))}
+        </div>
+        <Player accessToken={accessToken} playingTrack={playingTrack} />
       </div>
-
-      <Player accessToken={accessToken} trackUri={playingTrack?.uri} />
-    </div>
+      {showLyrics && (
+        <div className="lyrics">
+          {playingTrack && <div className="lyricTitle">
+            <h1>{playingTrack.title || playingTrack[0].title}</h1>
+            <h2>{playingTrack.artist ||playingTrack[0].artist }</h2>
+          </div>}
+          {lyrics && <div className="lyricWords">{lyrics}</div>}
+        </div>
+      )}
+    </React.Fragment>
   )
 }

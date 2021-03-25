@@ -2,15 +2,16 @@ import React, { useState, useEffect } from 'react'
 import "./Home.css"
 import SpotifyWebApi from "spotify-web-api-node"
 import SlideFlex from '../../uiComponents/slideFlex/SlideFlex'
-import Player from "../../uiComponents/player/Player"
 
 const spotifyApi = new SpotifyWebApi({
   clientId: "a730843ad65740449d795342bc50b8fb",
 })
 
-export default function Home({ accessToken }) {
+export default function Home({ accessToken, setPlayingTrack, setSearchResults }) {
   const [playlists, setPlaylists] = useState([])
+
   console.log(playlists)
+
   useEffect(() => {
     if (!accessToken) return;
     spotifyApi.setAccessToken(accessToken);
@@ -32,11 +33,51 @@ export default function Home({ accessToken }) {
     })
   }, [accessToken])
 
+  // const choosePlaylist = (playlistId) => {
+  //   spotifyApi.getPlaylistTracks(playlistId).then(res => {
+  //     const playlistSongs = res.body.items.map(item => {
+  //       const track = item.track
+  //       const smallestAlbumImage = track.album.images.reduce((smallest, image) => {
+  //         if (image.height < smallest.height) return image;
+  //         return smallest
+  //       }, track.album.images[0])
+  //       return {
+  //         artist: track.artists.map(artist => artist.name).join(', '),
+  //         title: track.name,
+  //         uri: track.uri,
+  //         albumUrl: smallestAlbumImage.url
+  //       }
+  //     })
+  //     setSearchResults(playlistSongs)
+  //     console.log(playlistSongs)
+  //   })
+  // }
+  const choosePlaylist = (playlistId) => {
+    spotifyApi.getPlaylistTracks(playlistId).then(res => {
+      const playlistSongs = res.body.items.map(item => {
+        const track = item.track
+        const smallestAlbumImage = track.album.images.reduce((smallest, image) => {
+          if (image.height < smallest.height) return image;
+          return smallest
+        }, track.album.images[0])
+        return {
+          artist: track.artists.map(artist => artist.name).join(', '),
+          title: track.name,
+          uri: track.uri,
+          albumUrl: smallestAlbumImage.url
+        }
+      })
+      setSearchResults(playlistSongs);
+
+      setPlayingTrack(playlistSongs)
+    })
+  }
 
   return (
     <div className="home">
-      <div className="favorite">
-        <SlideFlex item={playlists} />
+      <div className="recently">
+        <h2>Recently Played</h2>
+        <SlideFlex playlists={playlists} choosePlaylist={choosePlaylist} />
       </div>
     </div>
   )

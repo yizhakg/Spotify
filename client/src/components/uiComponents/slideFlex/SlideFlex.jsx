@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import "./SlideFlex.css"
 
-export default function SlideFlex({ item }) {
+export default function SlideFlex({ playlists, choosePlaylist }) {
   const handleClick = (e) => {
     const ele = document.getElementById("slide")
     const pos = {
@@ -26,12 +26,13 @@ export default function SlideFlex({ item }) {
     document.getElementById("slide").onmousemove = null
   }
 
-  const Slides = item.map((playlist, i) => {
+  const Slides = playlists.map((playlist, i) => {
     return <div key={`div${i}`} className="playlistImg" >
       < img src={playlist.playlistImage} alt="" />
+      <button onClick={()=>choosePlaylist(playlist.playlistId)}>play</button>
     </div>
   })
-  // const Slides = item.map((playlist, i) => {
+  // const Slides = playlists.map((playlist, i) => {
   //   const style = {
   //     backgroundImage:`url(${playlist.playlistImage})`
   //   }
