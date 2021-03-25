@@ -1,8 +1,8 @@
 .dashboard {
   width: 100%;
+  max-height: calc(100vh - 130px);
   position: absolute;
-  top: 0;
-  margin-top: 60px;
+  top: 52px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -75,13 +75,12 @@
 
 .lyrics-btn {
   background: transparent;
-  font-size: .7em;
+  font-size: 0.7em;
   letter-spacing: 1px;
   color: var(--white);
   outline: none;
   border: none;
   cursor: pointer;
-
 }
 .results {
   width: 80%;
@@ -94,8 +93,7 @@
 .lyrics {
   text-align: center;
   width: 100%;
-  margin-bottom: 80px;
-  transition: .5s;
+  transition: 0.5s;
 }
 .lyrics .lyricTitle {
   word-wrap: break-word;
@@ -105,4 +103,5 @@
 .lyrics .lyricWords {
   white-space: pre;
   color: var(--white);
+  margin-bottom: 80px;
 }

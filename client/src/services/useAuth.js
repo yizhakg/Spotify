@@ -22,7 +22,7 @@ export default function useAuth(code) {
       .catch(() => {
         window.location = "/";
       });
-  }, [code]);
+  }, [code,history]);
 
   //refresh access token
   useEffect(() => {

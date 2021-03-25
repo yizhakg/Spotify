@@ -11,7 +11,7 @@ const spotifyApi = new SpotifyWebApi({
 
 })
 
-export default function Dashboard({ code }) {
+export default function Dashboard({ code, setToken }) {
   const accessToken = useAuth(code);
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -24,7 +24,6 @@ export default function Dashboard({ code }) {
     setSearch("")
     setLyrics("")
   }
-  console.log(playingTrack)
   const handleSearchBlur = (e) => {
     console.log(e.target.value);
     setTimeout(() => {
@@ -34,7 +33,6 @@ export default function Dashboard({ code }) {
   }
   useEffect(() => {
     if (!playingTrack) return;
-    console.log(playingTrack)
     axios.get('http://localhost:4001/lyrics', {
       params: {
         track: playingTrack.title,
@@ -42,13 +40,15 @@ export default function Dashboard({ code }) {
       }
     }).then((res) => {
       setLyrics(res.data.lyrics)
+      setShowLyrics(true)
     })
   }, [playingTrack])
 
   useEffect(() => {
     if (!accessToken) return;
+    setToken(accessToken);
     spotifyApi.setAccessToken(accessToken);
-  }, [accessToken])
+  }, [accessToken, setToken])
 
   useEffect(() => {
     if (!search) return setSearchResults([]);
@@ -93,7 +93,7 @@ export default function Dashboard({ code }) {
               <h1>{playingTrack.title}</h1>
               <h2>{playingTrack.artist}</h2>
             </div>}
-            <div className="lyricWords">{lyrics}</div>
+            {lyrics && <div className="lyricWords">{lyrics}</div>}
           </div>
         )}
       </div>

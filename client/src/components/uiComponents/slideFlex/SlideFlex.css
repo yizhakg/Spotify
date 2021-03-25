@@ -1,0 +1,17 @@
+.slide-wrapper{
+  position: relative;
+  height:170px;
+  width:100vw;
+  overflow: hidden;
+}
+.slide{
+  position:absolute;
+  top:0;
+  left:0;
+  width: 100vw;
+  display:flex;
+  overflow-x: auto;
+}
+.slide img{
+  pointer-events: none;
+}
