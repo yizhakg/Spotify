@@ -11,7 +11,7 @@
   width: 100vw;
   display:flex;
   overflow-x: auto;
+  cursor: pointer;
 }
 .slide img{
-  pointer-events: none;
 }
