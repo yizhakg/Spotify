@@ -21,20 +21,20 @@ app.get("/", (req, res) => {
 //get lyrics route
 app.get("/lyrics", async (req, res) => {
   let artist = req.query.artist;
-  let track = req.query.track
- if(artist.indexOf("(")!=-1){
-   const index = artist.indexOf("(");
-  artist = artist.substring(0,index)
- }
- if(track.indexOf("(")!=-1){
-   const index = track.indexOf("(");
-   track = track.substring(0,index)
- }
- if(track.indexOf("-")!=-1){
-   const index = track.indexOf("-");
-   track = track.substring(0,index)
- }
-   const lyrics = await lyricsFinder(artist,track );
+  let track = req.query.track;
+  if (artist.indexOf("(") != -1) {
+    const index = artist.indexOf("(");
+    artist = artist.substring(0, index);
+  }
+  if (track.indexOf("(") != -1) {
+    const index = track.indexOf("(");
+    track = track.substring(0, index);
+  }
+  if (track.indexOf("-") != -1) {
+    const index = track.indexOf("-");
+    track = track.substring(0, index);
+  }
+  const lyrics = await lyricsFinder(artist, track);
   res.json({ lyrics });
 });
 //post login info route

@@ -18,7 +18,6 @@ export default function SpotifyRouter() {
           <Home
             accessToken={token}
             setPlayingTrack={setPlayingTrack}
-            setSearchResults={setSearchResults}
           />
         </Route>
       </Switch>

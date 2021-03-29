@@ -1,10 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import "./Player.css"
 import SpotifyPlayer from 'react-spotify-web-playback';
+import axios from 'axios'
 
 export default function Player({ accessToken, playingTrack }) {
   const [play, setPlay] = useState(false)
-  const [currentTrack, setCurrentTrack] = useState(null)
+  const [currentTrack, setCurrentTrack] = useState()
+  const [lyrics, setLyrics] = useState("");
+  const [showLyrics, setShowLyrics] = useState(false);
+  useEffect(() => {
+    if (!currentTrack) return;
+    axios.get('http://localhost:4001/lyrics', {
+      params: {
+        track: currentTrack.title,
+        artist: currentTrack.artist,
+      }
+    }).then((res) => {
+      setLyrics(res.data.lyrics)
+    })
+  }, [currentTrack])
+
+
   let trackUri;
   if (playingTrack) {
     if (Array.isArray(playingTrack)) {
@@ -25,18 +41,25 @@ export default function Player({ accessToken, playingTrack }) {
 
   }
   const handlePlayer = (state) => {
-    // console.log(state)
+    // console.log(state);
     if (!state.isPlaying) setPlay(false)
-    // if(!state.isPlaying) return
-    // if (currentTrack) currentTrack.classList.remove("active")
-    // document.getElementById(state.track.id).classList.add("active")
-    // setCurrentTrack(document.getElementById(state.track.id))
-    // console.log(currentTrack)
+    currentTrack?.id && document.getElementById(currentTrack.id)?.classList.remove("active")
+    setCurrentTrack({
+      id: state.track.id,
+      artist: state.track.artists,
+      title: state.track.name,
+    })
   }
 
   useEffect(() => {
     setPlay(true)
-  }, [trackUri, currentTrack])
+  }, [playingTrack])
+
+  useEffect(() => {
+    if (!currentTrack) return;
+    if (!currentTrack.id) return;
+    document.getElementById(currentTrack.id)?.classList.add("active")
+  })
 
   if (!accessToken) return null
   return (
@@ -49,6 +72,16 @@ export default function Player({ accessToken, playingTrack }) {
         uris={trackUri}
         styles={playerStyle}
       />
+      {lyrics && <button className="lyrics-btn" onClick={() => setShowLyrics((isShow) => !isShow)}>Lyrics {showLyrics ? <i className="fas fa-times"></i> : <i className="fas fa-plus"></i>}</button>}
+      {showLyrics && (
+        <div className="lyrics">
+          {currentTrack && <div className="lyricTitle">
+            <h1>{currentTrack.title}</h1>
+            <h2>{currentTrack.artist}</h2>
+          </div>}
+          {lyrics && <div className="lyricWords">{lyrics}</div>}
+        </div>
+      )}
     </div>
   )
 }

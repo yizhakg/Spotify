@@ -7,7 +7,6 @@
   display: flex;
   justify-content: center;
   transform: translateX(-50%);
-  backdrop-filter: blur(5px);
 }
 .player * {
   margin: 0;
@@ -29,4 +28,36 @@
 .PlayerRSWP p{
   /* display: none; */
  font-size: .7em;
+}
+
+.lyrics-btn {
+  background: transparent;
+  font-size: 0.7em;
+  font-weight: 800;
+  color: var(--green2);
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+.lyrics {
+  position: absolute;
+  max-height: calc(100vh - 120px);
+  top: calc(130px - 100vh);
+  overflow-y: auto;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  width: 100vw;
+  transition: 0.5s;
+  backdrop-filter: blur(15px);
+}
+.lyrics .lyricTitle {
+  word-wrap: break-word;
+  margin: 20px;
+  color: var(--green2);
+}
+.lyrics .lyricWords {
+  white-space: pre;
+  color: var(--white);
+  margin-bottom: 80px;
 }
