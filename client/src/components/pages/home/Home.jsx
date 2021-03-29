@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import "./Home.css"
 import SpotifyWebApi from "spotify-web-api-node"
 import SlideFlex from '../../uiComponents/slideFlex/SlideFlex'
+import TrackResults from '../../uiComponents/trackResults/TrackResults'
 
 const spotifyApi = new SpotifyWebApi({
   clientId: "a730843ad65740449d795342bc50b8fb",
@@ -9,6 +10,8 @@ const spotifyApi = new SpotifyWebApi({
 
 export default function Home({ accessToken, setPlayingTrack, setSearchResults }) {
   const [playlists, setPlaylists] = useState([])
+  const [playlistDetails, setPlaylistDetails] = useState(null)
+  const [playlistView, setPlaylistView] = useState([])
 
   useEffect(() => {
     if (!accessToken) return;
@@ -50,8 +53,10 @@ export default function Home({ accessToken, setPlayingTrack, setSearchResults })
   //     console.log(playlistSongs)
   //   })
   // }
-  const choosePlaylist = (playlistId) => {
-    spotifyApi.getPlaylistTracks(playlistId).then(res => {
+  const choosePlaylist = (playlist) => {
+    setPlaylistDetails(playlist)
+    console.log(playlist);
+    spotifyApi.getPlaylistTracks(playlist.playlistId).then(res => {
       const playlistSongs = res.body.items.map(item => {
         const track = item.track
         const smallestAlbumImage = track.album.images.reduce((smallest, image) => {
@@ -66,9 +71,7 @@ export default function Home({ accessToken, setPlayingTrack, setSearchResults })
           id: track.id
         }
       })
-      setSearchResults(playlistSongs);
-
-      setPlayingTrack(playlistSongs)
+      setPlaylistView(playlistSongs);
     })
   }
 
@@ -78,6 +81,23 @@ export default function Home({ accessToken, setPlayingTrack, setSearchResults })
         <h2>Recently Played</h2>
         <SlideFlex playlists={playlists} choosePlaylist={choosePlaylist} />
       </div>
+      {playlistView.length > 0 &&
+        <div className="playlist">
+          <div className="playlistDetails">
+            <img className="playlistImage" src={playlistDetails.playlistImage} alt="" />
+            <h1 className="playlistTitle">{playlistDetails.playlistName}</h1>
+          </div>
+          <div className="playlistView">
+            {playlistView.map((track) => (
+              <TrackResults track={track} chooseTrack={() => { }} key={track.uri} />
+            ))}
+          </div>
+          <div className="playlistBtns">
+            <button onClick={() => setPlayingTrack(playlistView)}>play</button>
+            <button onClick={() => setPlaylistView([])}>Back</button>
+          </div>
+        </div>
+      }
     </div>
   )
 }

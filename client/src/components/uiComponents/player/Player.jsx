@@ -25,13 +25,13 @@ export default function Player({ accessToken, playingTrack }) {
 
   }
   const handlePlayer = (state) => {
-    console.log(state)
+    // console.log(state)
     if (!state.isPlaying) setPlay(false)
-    if(!state.isPlaying) return
-    if (currentTrack) currentTrack.classList.remove("active")
-    document.getElementById(state.track.id).classList.add("active")
-    setCurrentTrack(document.getElementById(state.track.id))
-    console.log(currentTrack)
+    // if(!state.isPlaying) return
+    // if (currentTrack) currentTrack.classList.remove("active")
+    // document.getElementById(state.track.id).classList.add("active")
+    // setCurrentTrack(document.getElementById(state.track.id))
+    // console.log(currentTrack)
   }
 
   useEffect(() => {

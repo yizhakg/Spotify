@@ -29,7 +29,7 @@ export default function SlideFlex({ playlists, choosePlaylist }) {
   const Slides = playlists.map((playlist, i) => {
     return <div key={`div${i}`} className="playlistImg" >
       < img src={playlist.playlistImage} alt="" />
-      <button onClick={()=>choosePlaylist(playlist.playlistId)}>play</button>
+      <button onClick={()=>choosePlaylist(playlist)}>play</button>
     </div>
   })
   // const Slides = playlists.map((playlist, i) => {
