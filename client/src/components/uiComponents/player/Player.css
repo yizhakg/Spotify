@@ -41,7 +41,7 @@
 }
 .lyrics {
   position: absolute;
-  max-height: calc(100vh - 114px);
+  max-height: calc(100vh - 110px);
   width: 100vw;
   padding:0 20px;
   top: calc(123px - 100vh);
@@ -51,7 +51,7 @@
   transform: translateX(-50%);
   text-align: center;
   transition: 0.5s;
-  background: rgba(0, 0, 0, 0.589);
+  background: rgba(0, 0, 0, 0.801);
   box-shadow: 0 0 20px inset var(--black);
   backdrop-filter: blur(15px);
 }

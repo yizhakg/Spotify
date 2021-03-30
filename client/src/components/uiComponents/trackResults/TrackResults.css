@@ -7,7 +7,8 @@
   transition: .5s;
 }
 .trackCard:hover {
- background: var(--grey);
+ background: var(--grey3);
+ box-shadow: 0 0 20px inset var(--grey);
 }
 .trackCard.active{
   background: var(--green3);

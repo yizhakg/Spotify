@@ -41,14 +41,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 7em;
+  font-size: 4em;
   transition: 0.5s;
 }
+.headerLogo h1{
+  font-size: 1.5em;
+}
 .login-btn:hover + .headerLogo {
-  font-size: 9em;
+  font-size: 5em;
   color: var(--green);
 }
 .login-btn:active + .headerLogo {
-  font-size: 12em;
+  font-size: 6em;
   color: var(--green);
 }

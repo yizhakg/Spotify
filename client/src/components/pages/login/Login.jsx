@@ -10,6 +10,7 @@ export default function Login() {
         <a className="login-btn" href={AUTH_URL}>Login With Spotify</a>
         <div className="headerLogo">
         <i className="fab fa-spotify"></i>
+          <h1>Lyrics</h1>
       </div>
     </div>
   );
