@@ -1,6 +1,6 @@
 .login {
   width: 100%;
-  height: calc(100vh - 60px);
+  height: calc(100vh - 52px);
   margin-top: auto;
   display: flex;
   flex-direction: column-reverse;
@@ -9,6 +9,11 @@
   word-wrap: break-word;
   overflow-y: auto;
   overflow-x: hidden;
+  background: inherit;
+  background-blend-mode: overlay;
+  background-position: fixed;
+  background-color: inherit;
+  background-attachment: fixed;
   z-index: 1000;
 }
 

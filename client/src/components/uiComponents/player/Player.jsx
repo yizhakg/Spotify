@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react'
 import "./Player.css"
 import SpotifyPlayer from 'react-spotify-web-playback';
 import axios from 'axios'
+import { usePlayPosition } from "../../../services/SpotifyContext"
 
 export default function Player({ accessToken, playingTrack }) {
   const [play, setPlay] = useState(false)
   const [currentTrack, setCurrentTrack] = useState()
   const [lyrics, setLyrics] = useState("");
   const [showLyrics, setShowLyrics] = useState(false);
+  const playPosition = usePlayPosition();
+
   useEffect(() => {
     if (!currentTrack) return;
     axios.get('http://localhost:4001/lyrics', {
@@ -71,6 +74,7 @@ export default function Player({ accessToken, playingTrack }) {
         callback={handlePlayer}
         uris={trackUri}
         styles={playerStyle}
+        offset={playPosition}
       />
       {lyrics && <button className="lyrics-btn" onClick={() => setShowLyrics((isShow) => !isShow)}>Lyrics {showLyrics ? <i className="fas fa-times"></i> : <i className="fas fa-plus"></i>}</button>}
       {showLyrics && (

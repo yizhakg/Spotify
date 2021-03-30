@@ -4,6 +4,7 @@ import useAuth from '../../../services/useAuth'
 import SpotifyWebApi from "spotify-web-api-node"
 import TrackResults from "../../uiComponents/trackResults/TrackResults"
 import Player from "../../uiComponents/player/Player"
+import { useSetPlayPosition } from "../../../services/SpotifyContext"
 
 const spotifyApi = new SpotifyWebApi({
   clientId: "a730843ad65740449d795342bc50b8fb",
@@ -13,7 +14,10 @@ const spotifyApi = new SpotifyWebApi({
 export default function Dashboard({ code, setToken, playingTrack, setPlayingTrack, searchResults, setSearchResults }) {
   const accessToken = useAuth(code);
   const [search, setSearch] = useState("");
+  const setPlayPosition = useSetPlayPosition();
+
   const chooseTrack = (track) => {
+    setPlayPosition(0)
     setPlayingTrack(track)
     setSearch("")
   }
@@ -23,7 +27,7 @@ export default function Dashboard({ code, setToken, playingTrack, setPlayingTrac
       setSearchResults([]);
     }, 500);
   }
- 
+
   useEffect(() => {
     if (!accessToken) return;
     setToken(accessToken);
@@ -48,7 +52,7 @@ export default function Dashboard({ code, setToken, playingTrack, setPlayingTrac
           title: track.name,
           uri: track.uri,
           albumUrl: smallestAlbumImage.url,
-          id:track.id
+          id: track.id
         }
       }))
     })
@@ -71,7 +75,7 @@ export default function Dashboard({ code, setToken, playingTrack, setPlayingTrac
           ))}
         </div>
       </div>
-    
+
       <Player accessToken={accessToken} playingTrack={playingTrack} />
     </React.Fragment>
   )
