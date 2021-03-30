@@ -1,9 +1,10 @@
 import React from 'react'
 import "./SlideFlex.css"
 
-export default function SlideFlex({ playlists, choosePlaylist }) {
-  const handleClick = (e) => {
-    const ele = document.getElementById("slide")
+export default function SlideFlex({ playlists, choosePlaylist,id }) {
+
+  const handleDown = (e) => {
+    const ele = document.getElementById(id)
     const pos = {
       // The current scroll 
       left: ele.scrollLeft,
@@ -23,28 +24,21 @@ export default function SlideFlex({ playlists, choosePlaylist }) {
     ele.onmousemove = mouseMoveHandler
   }
   const handleUp = (e) => {
-    document.getElementById("slide").onmousemove = null
+    document.getElementById(id).onmousemove = null
   }
 
   const Slides = playlists.map((playlist, i) => {
-    return <div key={`div${i}`} className="playlistImg" >
+    return <div key={`div${i}`} className="playlistBox" >
       < img src={playlist.playlistImage} alt="" />
-      <button onClick={()=>choosePlaylist(playlist)}>play</button>
+      <button className="flexBtn" onClick={()=>choosePlaylist(playlist)}><i className="fas fa-play"></i></button>
     </div>
   })
-  // const Slides = playlists.map((playlist, i) => {
-  //   const style = {
-  //     backgroundImage:`url(${playlist.playlistImage})`
-  //   }
-  //   return <div key={`img${i}`} className="playlistImg" style={style} alt="" onMouseDown={handleClick} onMouseUp={handleUp}></div>
-  // })
-
 
   return (
 
     <React.Fragment>
       <div className="slide-wrapper" >
-        <div className="slide" id="slide" onMouseDown={handleClick} onMouseUp={handleUp}>
+        <div className="slide" id={id} onMouseDown={handleDown} onMouseUp={handleUp}>
           {Slides}
         </div>
       </div>

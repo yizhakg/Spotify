@@ -9,6 +9,7 @@
   word-wrap: break-word;
   overflow-y: auto;
   overflow-x: hidden;
+  z-index: 1000;
 }
 
 .login-btn {

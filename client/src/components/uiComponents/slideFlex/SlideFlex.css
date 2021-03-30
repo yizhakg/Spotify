@@ -13,7 +13,7 @@
   overflow-x: auto;
   overflow-y: hidden;
 }
-.home .playlistImg {
+.home .playlistBox {
   position: relative;
   height: 150px;
   width: 150px;
@@ -21,7 +21,7 @@
   cursor: pointer;
   transition: 0.3s;
 }
-.home .playlistImg:hover {
+.home .playlistBox:hover {
   transform: scale(1.1);
 }
 .slide img {
@@ -30,8 +30,27 @@
   width: 150px;
   object-fit: cover;
 }
-.home .playlistImg button{
+.home .playlistBox button{
   position: absolute;
   bottom:0;
   right:0;
+}
+.flexBtn{
+  height:35px;
+  width: 35px;
+  margin: 5px;
+  background: var(--green);
+  color: var(--white);
+  border-radius: 50%;
+  border:none;
+  outline: none;
+  font-size: .6em;
+  text-align: center;
+  padding: 2px 0px 0px 4px;
+  cursor: pointer;
+  transition: .5s;
+}
+.flexBtn:hover{
+transform: scale(1.2);
+font-size: .7em;
 }

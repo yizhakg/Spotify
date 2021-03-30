@@ -2,27 +2,29 @@
   position: absolute;
   top: 52px;
   width: 100%;
-  max-height: calc(100vh - 130px);
+  height: calc(100vh - 114px);
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
   align-items: flex-start;
   margin-bottom: 80px;
+  padding:10px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
-.recently {
+.showLine {
   width: 100%;
 }
 .playlist {
-  position: absolute;
-  top: 0;
+  position: fixed;
+  top: 52px;
   left: 0;
-  height: calc(100vh - 120px);
+  height: calc(100vh - 114px);
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* flex-wrap: wrap; */
-  background: #262626;
+  background: rgba(0, 0, 0, 0.897);
 }
 .playlist .playlistBtns {
   position: absolute;

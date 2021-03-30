@@ -41,14 +41,16 @@
 }
 .lyrics {
   position: absolute;
-  max-height: calc(100vh - 120px);
-  top: calc(130px - 100vh);
+  max-height: calc(100vh - 114px);
+  top: calc(123px - 100vh);
   overflow-y: auto;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
   width: 100vw;
   transition: 0.5s;
+  background: rgba(0, 0, 0, 0.589);
+  box-shadow: 0 0 20px inset var(--black);
   backdrop-filter: blur(15px);
 }
 .lyrics .lyricTitle {

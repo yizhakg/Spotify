@@ -49,8 +49,7 @@
   transition: 0.5s ease-in-out;
 }
 .dashboard .search:placeholder-shown {
-  background: var(--green3);
-  border: 2px solid var(--grey);
+  background: var(--green);
 }
 .dashboard .search::placeholder {
   color: var(--white);
